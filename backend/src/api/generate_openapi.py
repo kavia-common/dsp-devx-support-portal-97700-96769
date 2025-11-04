@@ -3,13 +3,20 @@ import os
 
 from src.api.main import app
 
-# Get the OpenAPI schema
-openapi_schema = app.openapi()
 
-# Write to file
-output_dir = "interfaces"
-os.makedirs(output_dir, exist_ok=True)
-output_path = os.path.join(output_dir, "openapi.json")
+def main() -> None:
+    """Generate and write the OpenAPI schema to interfaces/openapi.json."""
+    # Get the OpenAPI schema from the initialized FastAPI app (routers already included)
+    openapi_schema = app.openapi()
 
-with open(output_path, "w") as f:
-    json.dump(openapi_schema, f, indent=2)
+    # Write to file
+    output_dir = "interfaces"
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "openapi.json")
+
+    with open(output_path, "w") as f:
+        json.dump(openapi_schema, f, indent=2)
+
+
+if __name__ == "__main__":
+    main()
